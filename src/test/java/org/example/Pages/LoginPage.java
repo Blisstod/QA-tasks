@@ -1,5 +1,6 @@
-package org.example.FourthAssignment;
+package org.example.Pages;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class LoginPage {
+    private static final Logger logger = Logger.getLogger(LoginPage.class);
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -21,7 +23,7 @@ public class LoginPage {
     @FindBy(css = "input[value='Ok']")
     private WebElement loginButton;
 
-    @FindBy(css = "a[href*='exit']")
+    @FindBy(css = "a[href='/?main=exit']")
     private WebElement logoutButton;
 
     public LoginPage(WebDriver driver, WebDriverWait wait) {
@@ -31,8 +33,7 @@ public class LoginPage {
     }
 
     public void login(String username, String password) {
-        System.out.println("Attempting login...");
-
+        logger.info("Attempting login...");
         usernameField.clear();
         usernameField.sendKeys(username);
 
@@ -42,21 +43,29 @@ public class LoginPage {
         loginButton.click();
 
         wait.until(visibilityOf(logoutButton));
-        System.out.println("Login successful.");
+        logger.info("Login successful.");
     }
+
 
     public boolean isLoggedIn() {
         try {
+            wait.until(visibilityOf(logoutButton));
+            logger.info("Login status: true");
             return logoutButton.isDisplayed();
         } catch (Exception e) {
+            logger.warn("Login status: false");
             return false;
         }
     }
 
     public void logout() {
-        System.out.println("Attempting logout...");
-        logoutButton.click();
-        wait.until(visibilityOf(usernameField));
-        System.out.println("Logout successful.");
+        if (isLoggedIn()) {
+            logger.info("Attempting logout...");
+            logoutButton.click();
+            wait.until(visibilityOf(usernameField));
+            logger.info("Logout successful.");
+        } else {
+            logger.warn("Cannot logout, user is not logged in.");
+        }
     }
 }

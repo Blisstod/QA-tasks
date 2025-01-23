@@ -1,5 +1,6 @@
-package org.example.FourthAssignment;
+package org.example.Pages;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class TasksPage {
+    private static final Logger logger = Logger.getLogger(TasksPage.class);
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -41,18 +43,24 @@ public class TasksPage {
     }
 
     public void searchTask(String query) {
+        logger.info("Searching for task: " + query);
         searchField.sendKeys(query);
         searchButton.click();
+        logger.info("Search completed.");
     }
 
     public void navigateToTaskPage() {
+        logger.info("Navigating to task page.");
         complexityLink.click();
         wait.until(elementToBeClickable(pageThreeLink)).click();
         wait.until(elementToBeClickable(taskLink)).click();
+        logger.info("Task page navigation complete.");
     }
 
     public void submitTaskCode(String code) {
+        logger.info("Submitting task code.");
         ((JavascriptExecutor) driver).executeScript("arguments[0].CodeMirror.setValue(arguments[1]);", codeEditor, code);
         submitButton.click();
+        logger.info("Task code submitted successfully.");
     }
 }

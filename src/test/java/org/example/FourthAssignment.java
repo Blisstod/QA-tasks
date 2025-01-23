@@ -1,7 +1,7 @@
-package org.example.FourthAssignment;
+package org.example;
 
-import org.example.FourthAssignment.LoginPage;
-import org.example.FourthAssignment.TasksPage;
+import org.example.Pages.LoginPage;
+import org.example.Pages.TasksPage;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
