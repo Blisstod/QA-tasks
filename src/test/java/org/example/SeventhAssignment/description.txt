@@ -1,0 +1,9 @@
+For this assignment i've used my little personal project (Taxi analogue).
+
+First of all I created the collection for entire project. Then i've added the variables ("url", "authToken") for this collection to comfortable usage. Then i divided requests by folders.
+I've created the login request and post-response script, so after login, the token automatically has been set to this collection, instead of doing it manually.
+
+1) The login test has been passed successfully!
+2) Order creation test has been passed successfully!
+3) Get vacant orders test has been passed successfully!
+4) Delete order by id test has been passed successfully!
